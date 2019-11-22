@@ -1,8 +1,8 @@
 # MIAGe Master 1 - TP Tests 1
 
-### NOM : DOE
-### Prénom : John
-### Groupe de TP : 
+### NOM : POUGET
+### Prénom : Nicolas
+### Groupe de TP :
 - [ ] 1
 - [x] 2
 - [ ] 3
