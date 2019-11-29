@@ -19,7 +19,7 @@ public class ScoreCalculateurTest {
     public void setUp() throws Exception {
 
         this.listeChoixEtudiants = new ArrayList<Integer>();
-        this.questionAChoixMultiple = new QuestionAChoixMultiple("q1",new ArrayList<Integer>(Arrays.asList(2,3,5)));
+        this.questionAChoixMultiple = new QuestionAChoixMultiple("q1",new ArrayList<Integer>(Arrays.asList(2,3,5)), 5);
         this.scoreCalculateur = new ScoreCalculateur();
 
 
@@ -65,6 +65,42 @@ public class ScoreCalculateurTest {
 
         // then : le score doit être égal à 100
         assertEquals(score, scoreAttendu);
+
+        /**
+         * quand on calcule le score pour une liste de réponses contenant les valeurs 1,2,3,4,5 on obtient 0 à 0,01 près comme résultat ;
+         * quand on calcule le score pour une liste de réponses contenant les valeurs 1,2 et 3 on obtient 16.66 à 0,01 près comme résultat ;
+         */
+        // when : quand 3 réponses des étudiants sont correctes et 2 incorrectes
+        this.listeChoixEtudiants.clear();
+        this.listeChoixEtudiants.add(1);
+        this.listeChoixEtudiants.add(2);
+        this.listeChoixEtudiants.add(3);
+        this.listeChoixEtudiants.add(4);
+        this.listeChoixEtudiants.add(5);
+
+        // and : on demande le calcul du score
+        score = new Float(this.scoreCalculateur.calculeScore(this.listeChoixEtudiants,this.questionAChoixMultiple));
+
+        // and : on calcul le score attendu
+        scoreAttendu = new Float(0f);
+
+        // then : le score doit être égal à 0
+        assertEquals(score, scoreAttendu);
+
+        // when : quand 3 réponses des étudiants sont correctes
+        this.listeChoixEtudiants.clear();
+        this.listeChoixEtudiants.add(1);
+        this.listeChoixEtudiants.add(2);
+        this.listeChoixEtudiants.add(3);
+
+        // and : on demande le calcul du score
+        score = new Float(this.scoreCalculateur.calculeScore(this.listeChoixEtudiants,this.questionAChoixMultiple));
+
+        // and : on calcul le score attendu
+        scoreAttendu = new Float(100f/6f);
+
+        // then : le score doit être égal à 0
+        assertEquals(score, scoreAttendu, 0.02);
 
     }
 }

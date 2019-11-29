@@ -20,7 +20,7 @@ public class QuestionAChoixMultipleTest {
         listeChoix.add(2);
 
         // given : un objet de type QuestionAChoixMultiple
-        this.uneQuestion = new QuestionAChoixMultiple("un énoncé", listeChoix);
+        this.uneQuestion = new QuestionAChoixMultiple("un énoncé", listeChoix, 5);
 
     }
 
@@ -37,6 +37,18 @@ public class QuestionAChoixMultipleTest {
     }
 
     @Test
+    public void testGetNombreDePropositions() {
+        // when : on demande le nombre de propositions
+        int resNbProps = this.uneQuestion.getNombreDePropositions();
+
+        // then : le nombre de propositions est non null
+        assertNotNull(resNbProps);
+
+        // and : le nombre de propositions est bien celui fourni à la construction
+        assertEquals(5 , resNbProps);
+    }
+
+    @Test
     public void testGetScoreForIndice() {
         // when : un étudiant fourni l'indice correspondant la bonne réponse
         int indiceEtudiant = 2;
@@ -48,8 +60,10 @@ public class QuestionAChoixMultipleTest {
         indiceEtudiant = 3;
         // and : on demande le calcule du score
         resScore = this.uneQuestion.getScoreForIndice(indiceEtudiant);
+
+
         // then : le score obtenu est de 100
-        assertEquals(new Float(0f), resScore);
+        assertEquals(new Float(100f*-1f/3), resScore);
 
 
     }
